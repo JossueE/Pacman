@@ -19,32 +19,35 @@ path = Turtle(visible=False)
 writer = Turtle(visible=False)
 aim = vector(5, 0)
 pacman = vector(-40, -80)
+#En el segundo vector cambiamos la velocidad de movimiento del fantasma.
 ghosts = [
-    [vector(-180, 160), vector(5, 0)],
-    [vector(-180, -160), vector(0, 5)],
-    [vector(100, 160), vector(0, -5)],
-    [vector(100, -160), vector(-5, 0)],
+    [vector(-180, 160), vector(20, 0)],
+    [vector(-180, -160), vector(0, 20)],
+    [vector(100, 160), vector(0, -20)],
+    [vector(100, -160), vector(-20, 0)],
 ]
 # fmt: off
+
+#Realizamos el cambio del tablero, 1 es espacios libre y 0 son paredes.
 tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
     0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+    0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0,
+    0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0,
+    0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0,
     0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0,
     0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
@@ -131,14 +134,163 @@ def move():
     dot(20, 'yellow')
 
     for point, course in ghosts:
+        # Realizamos el código que tiene como objetivo mejorar la inteligencia de los fantasmas.
+
         if valid(point + course):
             point.move(course)
-        else:
+
+        #Comparamos el posición de Pacman con la del fantasma para que lo persiga.
+        elif pacman.x > 0 and pacman.y > 0: #Si pacman se encuentra en el cuadrante 1 de un plano cartesiano 2D
+            if course.x < 0 and course.y < 0: #Si el fantasma se encuentra en el cuadrante 3 de un plano cartesiano 2D
+                options = [
+                    vector(20, 0), #Se prioriza el movimiento arriba y a la derecha.
+                    vector(0, 20),
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+            elif course.x > 0 and course.y < 0: #Si el fantasma se encuentra en el cuadrante 4 de un plano cartesiano 2D
+                options = [
+                    vector(0, 20)   #Se prioriza el movimiento arriba.
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+
+
+            elif course.x < 0 and course.y > 0: #Si el fantasma se encuentra en el cuadrante 2 de un plano cartesiano 2D
+                options = [
+                    vector(20, 0) #Se prioriza el movimiento a la derecha.
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+
+            elif not valid(point + course): #Si topa pared se mueve en cualquier dirección.
+                options = [
+                    vector(20, 0),
+                    vector(-20, 0),
+                    vector(0, 20),
+                    vector(0, -20),
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+
+        elif pacman.x < 0 and pacman.y < 0: #Si pacman se encuentra en el cuadrante 3 de un plano cartesiano 2D
+            if course.x > 0 and course.y > 0: #Si el fantasma se encuentra en el cuadrante 1 de un plano cartesiano 2D
+                options = [
+                    vector(-20, 0), #Se prioriza el movimiento a la izquierda y abajo.
+                    vector(0, -20),
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+            elif course.x > 0 and course.y < 0: #Si el fantasma se encuentra en el cuadrante 4 de un plano cartesiano 2D
+                options = [
+                    vector(-20, 0) #Se prioriza el movimiento a la izquierda
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+
+            elif course.x < 0 and course.y > 0: #Si el fantasma se encuentra en el cuadrante 2 de un plano cartesiano 2D
+                options = [
+                    vector(0, -20), #Se prioriza el movimiento abajo.
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+
+            elif not valid(point + course): #Si topa pared se mueve en cualquier dirección.
+                options = [
+                    vector(20, 0),
+                    vector(-20, 0),
+                    vector(0, 20),
+                    vector(0, -20),
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+        elif pacman.x > 0 and pacman.y < 0: #Si pacman se encuentra en el cuadrante 4 de un plano cartesiano 2D
+            if course.x > 0 and course.y > 0: #Si el fantasma se encuentra en el cuadrante 1 de un plano cartesiano 2D
+                options = [
+
+                    vector(0, -20) #Se prioriza el movimiento abajo.
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+            elif course.x < 0 and course.y < 0: #Si el fantasma se encuentra en el cuadrante 3 de un plano cartesiano 2D
+                options = [
+                    vector(20, 0) #Se prioriza el movimiento a la derecha.
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+
+            elif course.x < 0 and course.y > 0: #Si el fantasma se encuentra en el cuadrante 2 de un plano cartesiano 2D
+                options = [
+                    vector(0, -20), #Se prioriza el movimiento a la derecha y abajo.
+                    vectr(20,0)
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+
+            elif not valid(point + course): #Si topa pared se mueve en cualquier dirección.
+                options = [
+                    vector(20, 0),
+                    vector(-20, 0),
+                    vector(0, 20),
+                    vector(0, -20),
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+        elif pacman.x < 0 and pacman.y > 0: #Si pacman se encuentra en el cuadrante 2 de un plano cartesiano 2D
+            if course.x > 0 and course.y > 0: #Si el fantasma se encuentra en el cuadrante 1 de un plano cartesiano 2D
+                options = [
+                    vector(-20, 0) #Se prioriza el movimiento a la izquierda.
+
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+            elif course.x < 0 and course.y < 0: #Si el fantasma se encuentra en el cuadrante 3 de un plano cartesiano 2D
+                options = [
+                    vector(0,20) #Se prioriza el movimiento arriba.
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+
+            elif course.x < 0 and course.y > 0: #Si el fantasma se encuentra en el cuadrante 2 de un plano cartesiano 2D
+                options = [
+                    vector(0, -20), #Se prioriza el movimiento abajo.
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+
+            elif not valid(point + course): #Si topa pared se mueve en cualquier dirección.
+                options = [
+                    vector(20, 0),
+                    vector(-20, 0),
+                    vector(0, 20),
+                    vector(0, -20),
+                ]
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+
+        else:  #Si pacman se encuentra en el punto (0,0) los fantasmas se mueven en cualquier dirección.
             options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
+                vector(20, 0),
+
+                vector(-20, 0),
+                vector(0, 20),
+                vector(0, -20),
             ]
             plan = choice(options)
             course.x = plan.x
