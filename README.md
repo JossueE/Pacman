@@ -21,7 +21,7 @@ This game runs on Python 3 and utilizes the `turtle` module for the graphical in
 4. Collect the white dots while avoiding the chasing ghosts.
 5. The game will keep track of your score, which you can see at the top right corner of the screen.
 6. Have fun and see how high of a score you can achieve!
-7. 
+7. Users can change the label by changing the tiles in the list, 0 is a wall and 1 is a road.
 
 ## Acknowledgments
 
